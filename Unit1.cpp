@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------------
+﻿//---------------------------------------------------------------------------
 
 #include <vcl.h>
 #pragma hdrstop
@@ -28,14 +28,14 @@ String result1;
 String result2;
 
 if((Edit1->Text=="")||(Edit1->Text=="+"))
-{ShowMessage("�� �� ������� ����� ��������");}
+{ShowMessage("Вы не указали номер телефона");}
 else
 {
-//�����----------------------------------------------------------------------
+//Цифры----------------------------------------------------------------------
   int A;
   int i=1;
   char q;
-  Phone=Edit1->Text;
+  Phone=Edit1->Text; //Записываем номер телефона в переменную
 	if(Phone[1]=='+')
 	 {
 		Phone.Delete(1,1);
@@ -56,11 +56,11 @@ else
 	Phone[i]=q;
 	i=i+2;
    }
-
+// Записываем перекодированый номер в переменную 
    Phone1="000100"+k+"91"+Phone;
 
-//�����----------------------------------------------------------------------
-if(Edit3->Text!="")
+//Текст----------------------------------------------------------------------
+if(Edit3->Text!="") 	// Проверка на пустоту в Edit3
 {
  String str;
  str=Edit3->Text;
@@ -73,17 +73,17 @@ for (int i=0; i<ucs2.Length; i=i+2)
    result=result+IntToHex(ucs2[i+1],2)+""+IntToHex(ucs2[i], 2);
  }
  String Len = IntToHex((str.Length())*2, 2);
-
+ 
+// Записываем в переменю перекодированый текст
 result2="0008"+Len+result;
-
 }
 }
-Memo1->Lines->Add(Phone1+result2);
+Memo1->Lines->Add(Phone1+result2); // Вывод в мемо итоговую перекодированную информацию
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Edit1Change(TObject *Sender)
 {
-if (Edit1->Text=="")
+if (Edit1->Text=="")	// Проверка на пустоту в Edit1
 {
 Edit1->Text="+";
 Button1->SetFocus();
@@ -94,16 +94,16 @@ Edit1->Text="+";
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Button2Click(TObject *Sender)
-{ Memo2->Lines->Clear();
-
+{ Memo2->Lines->Clear(); //Очищаем Memo2
+// Проверка на пустоту Edit4
 if((Edit4->Text==""))
-{ShowMessage("�� �� ����� PDU-���������");}
+{ShowMessage("Вы не ввели PDU-сообщение");}
 else
 {
 String Phone;
 String result;
 
-Phone=Edit4->Text;
+Phone=Edit4->Text; // Записываем в переменную PDU-сообщение
 AnsiString len = Phone.SubString(7, 2);
    std::string hex;
 	hex = len.c_str();
@@ -113,20 +113,24 @@ AnsiString len = Phone.SubString(7, 2);
 	Phone=Phone.Delete(decode+4,Phone.Length());
   int i=1;
   result = "";
+  // Замена байтов 
   while(i<Phone.Length())
   {
 	result=result+Phone[i+1]+Phone[i];
 	i=i+2;
   }
    Phone=result;
+   // Удаление символов
    Phone=Phone.Delete(decode+1,Phone.Length());
 Memo2->Lines->Add("+"+Phone);
 mes=Edit4->Text;
-if (decode%2!=0) {
+
+if (decode%2!=0)
+{
 mes=mes.Delete(1,decode+17);
 }
 else mes=mes.Delete(1,decode+16);
- String t;
+String t;
 String Str;
 String Str1;
 for (int i = 1; i <mes.Length(); i+=4) {
@@ -138,12 +142,12 @@ t=t+""+Str;
 Str="";
 Str1="";
 }
- Memo2->Lines->Add(t);
+ Memo2->Lines->Add(t); 		// Вывод текста в Memo2
 }
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Edit1KeyPress(TObject *Sender, System::WideChar &Key)
-{
+{	// Запрет ввода лишних символов
   if( Key != 8 && ( (Key < '0' || Key > '9' ) ) ) Key = NULL;
 	else if( Key == 8 && Edit1->Text.Length() == 1 && Edit1->Text[1] == '+')
 		Key = NULL;
@@ -152,7 +156,7 @@ void __fastcall TForm1::Edit1KeyPress(TObject *Sender, System::WideChar &Key)
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Button3Click(TObject *Sender)
-{
+{	// Очистка всего
  Edit1->Text = "+";
  Edit2->Text = "";
  Edit3->Text = "";
