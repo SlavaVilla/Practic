@@ -9,12 +9,6 @@
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 TForm1 *Form1;
-String Phone;
-String Phone1;
-String k;
-String result;
-String result1;
-String result2;
 String mes;
 int decode;
 //---------------------------------------------------------------------------
@@ -31,6 +25,12 @@ if((Edit1->Text=="")||(Edit1->Text=="+"))
 {ShowMessage("Вы не указали номер телефона");}
 else
 {
+String Phone;
+String Phone1;
+String k;
+String result;
+String result1;
+String result2;
 //Цифры----------------------------------------------------------------------
   int A;
   int i=1;
@@ -107,7 +107,8 @@ if((Edit4->Text==""))
 {ShowMessage("Вы не ввели PDU-сообщение");}
 else
 {
-
+String Phone;
+String result;
 Phone=Edit4->Text;
 AnsiString len = Phone.SubString(7, 2);
    std::string hex;
