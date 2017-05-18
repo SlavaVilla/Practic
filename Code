@@ -20,17 +20,16 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
 Memo1->Lines->Clear();
-
-if((Edit1->Text=="")||(Edit1->Text=="+"))
-{ShowMessage("Вы не указали номер телефона");}
-else
-{
 String Phone;
 String Phone1;
 String k;
 String result;
 String result1;
 String result2;
+if((Edit1->Text=="")||(Edit1->Text=="+"))
+{ShowMessage("Вы не указали номер телефона");}
+else
+{
 //Цифры----------------------------------------------------------------------
   int A;
   int i=1;
